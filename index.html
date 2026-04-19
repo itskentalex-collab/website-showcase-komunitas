@@ -1,17 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>BAT Community</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAT Community</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body {
+  background: #000;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* glass iOS */
+.glass {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* chat bubble */
+.user {
+  align-self: flex-end;
+  background: #3a3a3c;
+  color: white;
+  padding: 10px;
+  border-radius: 18px;
+  max-width: 70%;
+}
+
+.bot {
+  align-self: flex-start;
+  background: #1c1c1e;
+  color: #d1d1d6;
+  padding: 10px;
+  border-radius: 18px;
+  max-width: 70%;
+}
+
+/* scroll horizontal */
+.scroll-x {
+  overflow-x: auto;
+  display: flex;
+  gap: 8px;
+  padding-bottom: 4px;
+}
+.scroll-x::-webkit-scrollbar {
+  display: none;
+}
+</style>
 </head>
 
-<body class="bg-gray-950 text-white">
+<body class="text-white">
 
-<!-- NAVBAR -->
-<nav class="max-w-6xl mx-auto flex justify-between items-center p-6">
-  <h1 class="font-bold text-xl">🦇 BAT</h1>
-  <div class="space-x-6 text-gray-300">
+<!-- NAV -->
+<nav class="fixed top-0 w-full glass px-5 py-3 flex justify-between">
+  <span class="font-semibold">🦇 BAT</span>
+  <div class="space-x-4 text-sm text-gray-300">
     <a href="index.html">Home</a>
     <a href="team.html">Team</a>
     <a href="rules.html">Rules</a>
@@ -19,117 +66,58 @@
 </nav>
 
 <!-- HERO -->
-<section class="max-w-4xl mx-auto text-center py-20 px-6">
-  <h1 class="text-4xl md:text-5xl font-bold">BAT Community 🦇</h1>
-  <p class="mt-6 text-gray-400">
-    Tempatnya para nocturnal. Aktif saat yang lain tidur.
-    Ngobrol, mabar, dan cari teman di jam malam.
+<section class="pt-24 px-6 text-center">
+  <h1 class="text-3xl font-semibold">BAT Community</h1>
+  <p class="text-gray-400 mt-2">
+    Komunitas nocturnal. Aktif saat dunia tidur.
   </p>
 
   <a href="LINK_DISCORD"
-     class="mt-8 inline-block bg-indigo-600 px-8 py-3 rounded-lg">
+     class="mt-6 inline-block bg-gray-700 px-6 py-3 rounded-full">
      Join Discord
   </a>
 </section>
 
 <!-- FEATURES -->
-<section class="max-w-5xl mx-auto grid md:grid-cols-3 gap-6 px-6 pb-20">
-
-  <div class="bg-gray-900 p-6 rounded-xl">
-    <h3 class="font-bold text-lg">🌙 Night Active</h3>
-    <p class="text-gray-400 mt-2">Rame saat malam</p>
-  </div>
-
-  <div class="bg-gray-900 p-6 rounded-xl">
-    <h3 class="font-bold text-lg">🎮 Mabar</h3>
-    <p class="text-gray-400 mt-2">Santai tanpa toxic</p>
-  </div>
-
-  <div class="bg-gray-900 p-6 rounded-xl">
-    <h3 class="font-bold text-lg">💬 Chill</h3>
-    <p class="text-gray-400 mt-2">Ngobrol bebas</p>
-  </div>
-
+<section class="mt-10 px-6 space-y-4">
+  <div class="glass p-4">🌙 Aktif malam</div>
+  <div class="glass p-4">🎮 Mabar santai</div>
+  <div class="glass p-4">💬 Tanpa toxic</div>
 </section>
-
-<!-- CTA -->
-<section class="text-center pb-20">
-  <a href="LINK_DISCORD"
-     class="bg-purple-600 px-8 py-3 rounded-lg">
-     Join Sekarang
-  </a>
-</section>
-
-</body>
-</html>
 
 <!-- CHAT BUTTON -->
-<div id="chat-btn" style="position:fixed;bottom:20px;right:20px;background:#262626;color:white;padding:14px;border-radius:50%;cursor:pointer;">
+<div id="chat-btn"
+ style="position:fixed;bottom:20px;right:20px;background:#2c2c2e;padding:14px;border-radius:50%;cursor:pointer;">
 💬
 </div>
 
 <!-- CHAT BOX -->
-<div id="chat-box" style="display:none;position:fixed;bottom:80px;right:20px;width:320px;height:420px;background:#0d0d0d;border-radius:16px;padding:12px;flex-direction:column;box-shadow:0 10px 30px rgba(0,0,0,0.5);">
+<div id="chat-box"
+ style="display:none;position:fixed;bottom:80px;right:10px;width:90%;max-width:360px;height:420px;padding:12px;"
+ class="glass flex flex-col">
 
-  <!-- HEADER -->
-  <div style="font-weight:bold;margin-bottom:10px;color:#e5e5e5;">
-    🦇 BAT Assistant
+  <div class="text-sm mb-2 text-gray-300">BAT Assistant</div>
+
+  <!-- CHAT -->
+  <div id="chat-log"
+   style="flex:1;overflow:auto;display:flex;flex-direction:column;gap:8px;">
   </div>
 
-  <!-- CHAT LOG -->
-  <div id="chat-log" style="flex:1;overflow:auto;display:flex;flex-direction:column;gap:8px;padding-right:4px;"></div>
+  <!-- FAQ SCROLL -->
+  <div class="scroll-x mt-2">
 
-  <!-- FAQ BUTTON -->
-  <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;">
-    <button onclick="send('join')" class="faq">Join</button>
-    <button onclick="send('rules')" class="faq">Rules</button>
-    <button onclick="send('jam')" class="faq">Jam</button>
-    <button onclick="send('mabar')" class="faq">Mabar</button>
-    <button onclick="send('admin')" class="faq">Admin</button>
-    <button onclick="send('toxic')" class="faq">Toxic?</button>
+    <button onclick="send('join')" class="glass px-3 py-1 text-sm">Join</button>
+    <button onclick="send('rules')" class="glass px-3 py-1 text-sm">Rules</button>
+    <button onclick="send('jam')" class="glass px-3 py-1 text-sm">Jam</button>
+    <button onclick="send('admin')" class="glass px-3 py-1 text-sm">Admin</button>
+    <button onclick="send('mabar')" class="glass px-3 py-1 text-sm">Mabar</button>
+    <button onclick="send('toxic')" class="glass px-3 py-1 text-sm">Toxic?</button>
+    <button onclick="send('channel')" class="glass px-3 py-1 text-sm">Channel</button>
+    <button onclick="send('intro')" class="glass px-3 py-1 text-sm">Intro</button>
+
   </div>
 
 </div>
-
-<style>
-.faq {
-  background:#1a1a1a;
-  color:#e5e5e5;
-  border:none;
-  padding:6px 10px;
-  border-radius:10px;
-  cursor:pointer;
-  font-size:12px;
-}
-.faq:hover {
-  background:#2a2a2a;
-}
-
-/* CHAT BUBBLE */
-.msg {
-  max-width:75%;
-  padding:10px 12px;
-  border-radius:14px;
-  font-size:13px;
-  line-height:1.4;
-}
-
-/* USER (kanan) */
-.user {
-  align-self:flex-end;
-  background:#3797f0;
-  color:white;
-  border-bottom-right-radius:4px;
-}
-
-/* BOT (kiri) */
-.bot {
-  align-self:flex-start;
-  background:#262626;
-  color:#e5e5e5;
-  border-bottom-left-radius:4px;
-}
-</style>
 
 <script>
 const btn = document.getElementById("chat-btn");
@@ -140,42 +128,34 @@ btn.onclick = () => {
   box.style.display = box.style.display === "none" ? "flex" : "none";
 };
 
-// database jawaban
-const responses = {
-  join: "Klik tombol 'Join Discord' di halaman utama untuk masuk ke server.",
-  rules: "Aturan utama: hormati member, tidak toxic, dan tidak spam.",
-  jam: "Server BAT aktif mulai sekitar jam 22.00 malam 🌙",
-  mabar: "Tentu, kamu bisa mabar dengan member lain 🎮",
-  admin: "Admin: Faelyn, Raraw, Vin. Co-owner: Aziels, Nasho.",
-  toxic: "Tidak diperbolehkan. Server ini fokus pada suasana santai dan nyaman."
+const data = {
+  join: "Klik tombol Join Discord di atas.",
+  rules: "Hormati member, no toxic, no spam.",
+  jam: "Server umumnya aktif mulai jam 22.00 malam 🌙",
+  admin: "Admin: Faelyn, Raraw, Vin | Co-owner: Aziels, Nasho",
+  mabar: "Bisa mabar bareng member 🎮",
+  toxic: "Tidak boleh toxic. Tujuan server santai.",
+  channel: "Gunakan channel sesuai topik.",
+  intro: "Member baru wajib say hi di #bat-nest."
 };
 
 function send(type){
 
-  // mapping text user
-  const userTextMap = {
-    join: "Cara join?",
-    rules: "Apa rules?",
-    jam: "Jam aktif kapan?",
-    mabar: "Bisa mabar?",
-    admin: "Siapa admin?",
-    toxic: "Boleh toxic?"
-  };
+  const user = document.createElement("div");
+  user.className = "user";
+  user.innerText = type;
+  log.appendChild(user);
 
-  // USER MESSAGE
-  const userMsg = document.createElement("div");
-  userMsg.className = "msg user";
-  userMsg.innerText = userTextMap[type];
-  log.appendChild(userMsg);
-
-  // BOT REPLY
-  setTimeout(() => {
-    const botMsg = document.createElement("div");
-    botMsg.className = "msg bot";
-    botMsg.innerText = responses[type] || "Belum ada jawaban.";
-    log.appendChild(botMsg);
+  setTimeout(()=>{
+    const bot = document.createElement("div");
+    bot.className = "bot";
+    bot.innerText = data[type];
+    log.appendChild(bot);
 
     log.scrollTop = log.scrollHeight;
-  }, 400);
+  }, 300);
 }
 </script>
+
+</body>
+</html>

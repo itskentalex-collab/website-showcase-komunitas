@@ -62,3 +62,120 @@
 
 </body>
 </html>
+
+<!-- CHAT BUTTON -->
+<div id="chat-btn" style="position:fixed;bottom:20px;right:20px;background:#262626;color:white;padding:14px;border-radius:50%;cursor:pointer;">
+💬
+</div>
+
+<!-- CHAT BOX -->
+<div id="chat-box" style="display:none;position:fixed;bottom:80px;right:20px;width:320px;height:420px;background:#0d0d0d;border-radius:16px;padding:12px;flex-direction:column;box-shadow:0 10px 30px rgba(0,0,0,0.5);">
+
+  <!-- HEADER -->
+  <div style="font-weight:bold;margin-bottom:10px;color:#e5e5e5;">
+    🦇 BAT Assistant
+  </div>
+
+  <!-- CHAT LOG -->
+  <div id="chat-log" style="flex:1;overflow:auto;display:flex;flex-direction:column;gap:8px;padding-right:4px;"></div>
+
+  <!-- FAQ BUTTON -->
+  <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;">
+    <button onclick="send('join')" class="faq">Join</button>
+    <button onclick="send('rules')" class="faq">Rules</button>
+    <button onclick="send('jam')" class="faq">Jam</button>
+    <button onclick="send('mabar')" class="faq">Mabar</button>
+    <button onclick="send('admin')" class="faq">Admin</button>
+    <button onclick="send('toxic')" class="faq">Toxic?</button>
+  </div>
+
+</div>
+
+<style>
+.faq {
+  background:#1a1a1a;
+  color:#e5e5e5;
+  border:none;
+  padding:6px 10px;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:12px;
+}
+.faq:hover {
+  background:#2a2a2a;
+}
+
+/* CHAT BUBBLE */
+.msg {
+  max-width:75%;
+  padding:10px 12px;
+  border-radius:14px;
+  font-size:13px;
+  line-height:1.4;
+}
+
+/* USER (kanan) */
+.user {
+  align-self:flex-end;
+  background:#3797f0;
+  color:white;
+  border-bottom-right-radius:4px;
+}
+
+/* BOT (kiri) */
+.bot {
+  align-self:flex-start;
+  background:#262626;
+  color:#e5e5e5;
+  border-bottom-left-radius:4px;
+}
+</style>
+
+<script>
+const btn = document.getElementById("chat-btn");
+const box = document.getElementById("chat-box");
+const log = document.getElementById("chat-log");
+
+btn.onclick = () => {
+  box.style.display = box.style.display === "none" ? "flex" : "none";
+};
+
+// database jawaban
+const responses = {
+  join: "Klik tombol 'Join Discord' di halaman utama untuk masuk ke server.",
+  rules: "Aturan utama: hormati member, tidak toxic, dan tidak spam.",
+  jam: "Server BAT aktif mulai sekitar jam 22.00 malam 🌙",
+  mabar: "Tentu, kamu bisa mabar dengan member lain 🎮",
+  admin: "Admin: Faelyn, Raraw, Vin. Co-owner: Aziels, Nasho.",
+  toxic: "Tidak diperbolehkan. Server ini fokus pada suasana santai dan nyaman."
+};
+
+function send(type){
+
+  // mapping text user
+  const userTextMap = {
+    join: "Cara join?",
+    rules: "Apa rules?",
+    jam: "Jam aktif kapan?",
+    mabar: "Bisa mabar?",
+    admin: "Siapa admin?",
+    toxic: "Boleh toxic?"
+  };
+
+  // USER MESSAGE
+  const userMsg = document.createElement("div");
+  userMsg.className = "msg user";
+  userMsg.innerText = userTextMap[type];
+  log.appendChild(userMsg);
+
+  // BOT REPLY
+  setTimeout(() => {
+    const botMsg = document.createElement("div");
+    botMsg.className = "msg bot";
+    botMsg.innerText = responses[type] || "Belum ada jawaban.";
+    log.appendChild(botMsg);
+
+    log.scrollTop = log.scrollHeight;
+  }, 400);
+}
+</script>
